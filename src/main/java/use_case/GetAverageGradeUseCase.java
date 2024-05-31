@@ -21,8 +21,7 @@ public final class GetAverageGradeUseCase {
         for (String member: membersArray){
             total += (gradeDB.getGrade(member, course).getGrade());
         }
-        float averageGrade = (float) total / (float) membersArray.length;
-        return averageGrade;
+        return (float) total / (float) membersArray.length;
 
     }
 }
