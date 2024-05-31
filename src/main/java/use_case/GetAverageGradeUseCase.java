@@ -1,5 +1,6 @@
 package use_case;
 import api.GradeDB;
+import api.MongoGradeDB;
 import entity.Grade;
 import entity.Team;
 
@@ -12,6 +13,7 @@ public final class GetAverageGradeUseCase {
 
     public float getAverageGrade(String course) {
         // TODO: Get average grade for all students in your team.
-        return 0.0f;
+        Grade grade = gradeDB.getGrade("lijiaro3", course);
+        return grade.getGrade();
     }
 }
