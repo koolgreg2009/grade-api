@@ -102,7 +102,7 @@ enter requests as different users.
 
 ***
 
-## Task 3: Coding a new feature
+## Task 3: Coding a new feature!
 
 While this program has some useful core functionality which is provided by the Grade API,
 there are certain things that the Grade API can't currently do.
