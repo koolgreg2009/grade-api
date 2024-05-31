@@ -205,11 +205,15 @@ public class MongoGradeDB implements GradeDB {
             JSONObject responseBody = new JSONObject(response.body().string());
 
             if (responseBody.getInt("status_code") == 200) {
-                JSONObject grade = responseBody.getJSONObject("grade");
+                JSONObject team = responseBody.getJSONObject("team");
+                JSONArray membersArray = team.getJSONArray("members");
+                String[] members = new String[membersArray.length()];
+                for (int i = 0; i < membersArray.length(); i++) {
+                    members[i] = membersArray.getString(i);
+                }
                 return Team.builder() // this should return Team. I think we create a team builder based on the json file returned
-                        .utorid(grade.getString("utorid")) // also Team class has a getMembers() method i think we need to return the Team after processing the json file and we do team.getMembers
-                        .course(grade.getString("course"))
-                        .grade(grade.getInt("grade"))
+                        .name(team.getString("name"))
+                        .members(members)
                         .build();
             } else {
                 throw new RuntimeException(responseBody.getString("message"));
