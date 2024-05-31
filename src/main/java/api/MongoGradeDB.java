@@ -190,6 +190,32 @@ public class MongoGradeDB implements GradeDB {
     //       Hint: Read apiDocuments/getMyTeam.md and refer to the above
     //             methods to help you write this code (copy-and-paste + edit as needed).
     public Team getMyTeam() {
-        return null;
+        // this should return a Team object
+        // copied from getGrade
+        OkHttpClient client = new OkHttpClient().newBuilder()
+                .build();
+        Request request = new Request.Builder()
+                .url("https://grade-logging-api.chenpan.ca/team") // changed to "team" according to API in getMyTeam.md
+                .addHeader("Authorization", API_TOKEN)
+                .addHeader("Content-Type", "application/json")
+                .build();
+        try {
+            Response response = client.newCall(request).execute();
+            System.out.println(response);
+            JSONObject responseBody = new JSONObject(response.body().string());
+
+            if (responseBody.getInt("status_code") == 200) {
+                JSONObject grade = responseBody.getJSONObject("grade");
+                return Team.builder() // this should return Team. I think we create a team builder based on the json file returned
+                        .utorid(grade.getString("utorid")) // also Team class has a getMembers() method i think we need to return the Team after processing the json file and we do team.getMembers
+                        .course(grade.getString("course"))
+                        .grade(grade.getInt("grade"))
+                        .build();
+            } else {
+                throw new RuntimeException(responseBody.getString("message"));
+            }
+        } catch (IOException | JSONException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
