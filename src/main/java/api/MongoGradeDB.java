@@ -52,6 +52,7 @@ public class MongoGradeDB implements GradeDB {
 
     @Override
     public Grade logGrade(String course, int grade) throws JSONException {
+        // for some reason this doesnt work for me when i enter 0 as the grade
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
         MediaType mediaType = MediaType.parse("application/json");
