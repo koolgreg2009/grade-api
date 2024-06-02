@@ -2,9 +2,6 @@ package use_case;
 import api.GradeDB;
 import entity.Grade;
 import entity.Team;
-import java.util.List;
-import java.util.LinkedList;
-
 
 public final class GetAverageGradeUseCase {
     private final GradeDB gradeDB;
